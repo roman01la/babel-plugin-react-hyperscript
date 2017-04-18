@@ -1,5 +1,7 @@
 # babel-plugin-react-hyperscript
 
+[![npm](https://img.shields.io/npm/v/babel-plugin-react-hyperscript.svg)](https://www.npmjs.com/package/babel-plugin-react-hyperscript)
+
 *HyperScript components syntax for React without runtime overhead.*
 
 Compiles [react-hyperscript](https://github.com/mlmorg/react-hyperscript) into `React.createElement`.
@@ -40,6 +42,22 @@ By default calls to `h` will be replaced with `React.createElement`, but you can
 {
   "plugins": ["react-hyperscript", { "pragma": "yo" }]
 }
+```
+
+```js
+// Input
+h('h1#boom.whatever.foo', [
+  h('span'),
+  h(MyComponent, { text: 'Hello!' })
+]);
+
+// Output
+yo('h1', {
+  id: 'boom',
+  className: 'whatever foo'
+},
+yo('span'),
+yo(MyComponent, { text: 'Hello!' }));
 ```
 
 ## Usage
