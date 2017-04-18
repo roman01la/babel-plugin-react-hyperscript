@@ -31,6 +31,17 @@ React.createElement(MyComponent, { text: 'Hello!' }));
 npm i babel-plugin-react-hyperscript
 ```
 
+## Plugin options
+
+**pragma**
+
+By default calls to `h` will be replaced with `React.createElement`, but you can override this with a custom pragma (including `h` itself when used with [Preact](https://github.com/developit/preact)).
+```js
+{
+  "plugins": ["react-hyperscript", { "pragma": "yo" }]
+}
+```
+
 ## Usage
 
 ### Via .babelrc (Recommended)

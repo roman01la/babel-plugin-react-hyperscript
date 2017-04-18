@@ -1,7 +1,7 @@
 {
   "name": "babel-plugin-react-hyperscript",
   "version": "0.0.1",
-  "description": "HyperScript components syntax for React without runtime overhead",
+  "description": "HyperScript syntax for React components without runtime overhead",
   "repository": "roman01la/babel-plugin-react-hyperscript",
   "main": "lib/index.js",
   "scripts": {
@@ -24,6 +24,7 @@
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
+    "babylon": "^6.16.1",
     "mocha": "^3.2.0"
   }
 }

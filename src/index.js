@@ -1,13 +1,32 @@
+import { parse } from 'babylon';
+
+function parsePragma(pragma) {
+  return parse(pragma).program.body[0].expression;
+}
+
+const parsePragmaMemd = memoize(parsePragma);
+
 export default function (babel) {
   const { types: t } = babel;
 
   return {
-    name: "babel-plugin-react-hyperscript",
+    name: 'babel-plugin-react-hyperscript',
     visitor: {
-      CallExpression(path) {
+      CallExpression(path, { opts }) {
+
         if (path.node.callee.name === 'h') {
+
+          const pragma = opts.pragma;
           const [element, props, ...children] = path.node.arguments;
-          path.replaceWith(h(t, element, props, children));
+
+          if (pragma === 'h') {
+            path.node.arguments = h(t, element, props, children);
+          } else {
+            path.replaceWith(
+              t.CallExpression(
+                parsePragmaMemd(pragma || 'React.createElement'),
+                h(t, element, props, children)));
+          }
         }
       }
     }
@@ -153,13 +172,7 @@ function h(t, componentOrTag, properties, children) {
     args = [componentOrTagName, ...children];
   }
 
-  return (
-    t.CallExpression(
-      t.MemberExpression(
-        t.Identifier('React'),
-        t.Identifier('createElement')),
-      args)
-  );
+  return args;
 }
 
 function isChild(t, x) {
@@ -229,4 +242,18 @@ function parseTag(t, tag) {
   }
 
   return tagName ? [t.StringLiteral(tagName.toLowerCase()), props] : [t.StringLiteral('div'), props];
+}
+
+function memoize(fn) {
+
+  let mem;
+
+  return (...args) => {
+    if (mem) {
+      return mem;
+    } else {
+      mem = fn(...args);
+      return mem;
+    }
+  }
 }
