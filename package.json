@@ -1,8 +1,9 @@
 {
   "name": "babel-plugin-react-hyperscript",
   "version": "0.0.1",
-  "description": "",
-  "main": "index.js",
+  "description": "HyperScript components syntax for React without runtime overhead",
+  "repository": "roman01la/babel-plugin-react-hyperscript",
+  "main": "lib/index.js",
   "scripts": {
     "clean": "rm -rf lib",
     "build": "babel src -d lib",
@@ -11,8 +12,14 @@
     "test:watch": "npm run test -- --watch",
     "prepublish": "npm run clean && npm run build"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "babel",
+    "plugin",
+    "babel-plugin",
+    "react",
+    "hyperscript"
+  ],
+  "author": "Roman Liutikov <roman01la@romanliutikov.com>",
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.24.1",

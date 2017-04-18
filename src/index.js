@@ -70,6 +70,67 @@ function h(t, componentOrTag, properties, children) {
     properties = t.Identifier('null');
   }
 
+  if (t.isObjectExpression(properties)) {
+
+    const dataSet = (
+      properties.properties
+        .find((prop) => prop.key.name === 'dataset' && t.isObjectExpression(prop.value))
+    );
+
+    const attributes = (
+      properties.properties
+        .find((prop) => prop.key.name === 'attributes' && t.isObjectExpression(prop.value))
+    );
+
+    const attrChildren = (
+      properties.properties
+        .find((prop) => prop.key.name === 'children' && t.isArrayExpression(prop.value))
+    );
+
+    if (dataSet) {
+      dataSet
+        .value
+        .properties
+        .map((prop) => [prop.key.name, prop.value.value])
+        .forEach(([name, value]) => {
+          properties.properties.push(
+            t.ObjectProperty(
+              t.StringLiteral('data-' + name),
+              t.StringLiteral(value)))
+        });
+
+      properties.properties = properties.properties
+        .filter((prop) => prop.key.name !== 'dataset');
+    }
+
+    if (attributes) {
+      attributes
+        .value
+        .properties
+        .map((prop) => [prop.key.name, prop.value.value])
+        .forEach(([name, value]) => {
+          properties.properties.push(
+            t.ObjectProperty(
+              t.Identifier(name),
+              t.StringLiteral(value)))
+        });
+
+      properties.properties = properties.properties
+        .filter((prop) => prop.key.name !== 'attributes');
+    }
+
+    if (attrChildren) {
+      children = children.concat(attrChildren.value.elements);
+
+      properties.properties = properties.properties
+        .filter((prop) => prop.key.name !== 'children');
+
+      if (properties.properties.length === 0) {
+        properties = t.Identifier('null');
+      }
+    }
+  }
+
   let args = [componentOrTagName, properties, ...children];
 
   if (t.isObjectExpression(properties) && children.length > 0) {
@@ -81,7 +142,7 @@ function h(t, componentOrTag, properties, children) {
   }
 
   if (isChildren(t, properties) && children.length === 0) {
-  	args = [componentOrTagName, t.Identifier('null'), properties];
+    args = [componentOrTagName, t.Identifier('null'), properties];
   }
 
   if (isChild(t, properties) && children.length > 0) {
