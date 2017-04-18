@@ -25,9 +25,14 @@ React.createElement('h1', null, React.createElement('span'), React.createElement
 
 React.createElement('h1', null, React.createElement('span'), React.createElement('span'));
 
-React.createElement('div', { dataset: { foo: 'bar', bar: 'oops' } });
+React.createElement('div', {
+  'data-foo': 'bar',
+  'data-bar': 'oops'
+});
 
-React.createElement('div', { attributes: { title: 'foo' } });
+React.createElement('div', {
+  title: 'foo'
+});
 
 React.createElement(Component);
 
@@ -35,6 +40,6 @@ React.createElement(Component, { title: 'Hello World!' }, React.createElement('s
 
 React.createElement(Component, null, React.createElement('span', null, 'A child'));
 
-React.createElement(Component, { children: [React.createElement('span', null, 'A child')] });
+React.createElement(Component, null, React.createElement('span', null, 'A child'));
 
 React.createElement(FunctionComponent, null, React.createElement('span', null, 'A child'));
