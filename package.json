@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-react-hyperscript",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "HyperScript syntax for React components without runtime overhead",
   "repository": "roman01la/babel-plugin-react-hyperscript",
   "main": "lib/index.js",
