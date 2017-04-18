@@ -2,7 +2,7 @@
 
 [![npm](https://img.shields.io/npm/v/babel-plugin-react-hyperscript.svg)](https://www.npmjs.com/package/babel-plugin-react-hyperscript)
 
-*HyperScript components syntax for React without runtime overhead.*
+*HyperScript syntax for React components without runtime overhead.*
 
 Compiles [react-hyperscript](https://github.com/mlmorg/react-hyperscript) into `React.createElement`.
 
