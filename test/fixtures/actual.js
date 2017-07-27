@@ -30,6 +30,9 @@ h('div', {dataset: {foo: 'bar', bar: 'oops'}});
 
 h('div', {attributes: {title: 'foo'}});
 
+const obj = { a: 1 }
+h(Component, { ...obj, b: 2 });
+
 h(Component);
 
 h(Component, {title: 'Hello World!'}, [

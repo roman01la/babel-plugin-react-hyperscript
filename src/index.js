@@ -93,17 +93,17 @@ function h(t, componentOrTag, properties, children) {
 
     const dataSet = (
       properties.properties
-        .find((prop) => prop.key.name === 'dataset' && t.isObjectExpression(prop.value))
+        .find((prop) => prop.key && prop.key.name === 'dataset' && t.isObjectExpression(prop.value))
     );
 
     const attributes = (
       properties.properties
-        .find((prop) => prop.key.name === 'attributes' && t.isObjectExpression(prop.value))
+        .find((prop) => prop.key && prop.key.name === 'attributes' && t.isObjectExpression(prop.value))
     );
 
     const attrChildren = (
       properties.properties
-        .find((prop) => prop.key.name === 'children' && t.isArrayExpression(prop.value))
+        .find((prop) => prop.key && prop.key.name === 'children' && t.isArrayExpression(prop.value))
     );
 
     if (dataSet) {
@@ -119,7 +119,7 @@ function h(t, componentOrTag, properties, children) {
         });
 
       properties.properties = properties.properties
-        .filter((prop) => prop.key.name !== 'dataset');
+        .filter((prop) => !prop.key || prop.key.name !== 'dataset');
     }
 
     if (attributes) {
@@ -135,7 +135,7 @@ function h(t, componentOrTag, properties, children) {
         });
 
       properties.properties = properties.properties
-        .filter((prop) => prop.key.name !== 'attributes');
+        .filter((prop) => !prop.key || prop.key.name !== 'attributes');
     }
 
     if (attrChildren) {
