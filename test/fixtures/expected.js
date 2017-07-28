@@ -1,3 +1,5 @@
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 React.createElement('h1');
 
 React.createElement('h1', {
@@ -33,6 +35,9 @@ React.createElement('div', {
 React.createElement('div', {
   title: 'foo'
 });
+
+const obj = { a: 1 };
+React.createElement(Component, _extends({}, obj, { b: 2 }));
 
 React.createElement(Component);
 
